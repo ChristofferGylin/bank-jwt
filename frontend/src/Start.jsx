@@ -15,7 +15,7 @@ const Start = () => {
             </InfoArticle>
             <InfoArticle
                 title='Huff, puff and blow-proof facilities'
-                tagline='With us you can feel safe from wolfes and other baddies .'
+                tagline='With us your money is safe from wolves and other baddies.'
                 img='./vault.jpg'
                 imgAlt='Bank vault'
                 reverse={true}>

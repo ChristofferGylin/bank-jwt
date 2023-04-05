@@ -1,5 +1,5 @@
 const InfoArticle = ({ title, tagline, img, imgAlt, reverse, children }) => {
-    const style = 'grid grid-cols-2 items-center gap-8 mx-12 pb-12 border-b border-pink-300';
+    const style = 'grid grid-cols-2 items-start gap-8 mx-12 pb-12 border-b border-pink-300';
 
     if (reverse) {
 
