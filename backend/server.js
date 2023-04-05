@@ -28,8 +28,8 @@ app.post('/users', (req, res) => {
         id: accountIdCount++,
         userId: user.id,
         balance: req.body.initialDeposit,
-
-    })
+        transactions: []
+    });
     console.log('users:', users);
     console.log('accounts:', accounts);
     res.send('ok');
