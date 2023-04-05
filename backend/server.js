@@ -12,10 +12,10 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors());
 
-const users = [];
-const accounts = [];
-let userIdCount = 0;
-let accountIdCount = 0;
+const users = [{ id: 0, username: 'chris', password: '1234' }];
+const accounts = [{ id: 0, userId: 0, balance: 100, transactions: [] }];
+let userIdCount = 1;
+let accountIdCount = 1;
 
 app.post('/users', (req, res) => {
 
@@ -48,8 +48,11 @@ app.post('/sessions', (req, res) => {
 
 
         const token = jwt.sign(dbUser.username, SECRET);
-        console.log({ token });
-        res.json({ token });
+        console.log('heyoo');
+        console.log('token:', token)
+        res.cookie('gylin-bank-jwt', token, { maxAge: 90000000, httpOnly: false });
+        res.json(token);
+
 
     } else {
         res.send('error');
@@ -60,14 +63,17 @@ app.post('/sessions', (req, res) => {
 app.get('/me/accounts', (req, res) => {
 
     const headers = req.headers;
-    const authHeader = headers.authorization;
 
+    console.log('headers:', headers);
+    const authHeader = headers.authorization;
     const token = authHeader.split(' ')[1];
+
+    console.log('token form accounts:', token)
 
     jwt.verify(token, SECRET, (err, userName) => {
 
         if (err) {
-            res.sendStatut(403);
+            res.sendStatus(403);
             return;
         }
         const user = users.find(userElement => userElement.username === userName)

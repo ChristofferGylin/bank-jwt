@@ -28,19 +28,20 @@ const Menu = ({ isLoggedIn, setIsLoggedIn }) => {
 
         if (response.ok) {
 
+            const token = await response.json();
+            document.cookie = `gylin-bank-jwt=${token}`
             setIsLoggedIn(true);
 
         } else {
 
-            console.log('error');
+            console.log('error')
 
         }
-
-
-
     }
+
     const logOut = () => {
 
+        document.cookie = 'gylin-bank-jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
         setIsLoggedIn(false);
 
     }

@@ -8,14 +8,14 @@ const Start = () => {
             <InfoArticle
                 title='Welcome to Piggy Bank'
                 tagline='You can trust us with your money. Just look at us. We have suits and ties!'
-                img='./suitandtie.jpg'
+                img='./pigsuitandtie.jpg'
                 imgAlt='Suit and tie guy'>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem ex labore amet modi ipsam. Aliquid temporibus placeat odit! Adipisci repudiandae fugiat earum dolor quas?</p>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam eveniet omnis magnam commodi sapiente ea hic enim. Lorem ipsum dolor sit amet.</p>
             </InfoArticle>
             <InfoArticle
-                title='Just imagine how safe your money will be behind this huge door'
-                tagline='You can trust us with your money. Just look at us. We have this big ass steel door.'
+                title='Huff, puff and blow-proof facilities'
+                tagline='With us you can feel safe from wolfes and other baddies .'
                 img='./vault.jpg'
                 imgAlt='Bank vault'
                 reverse={true}>
