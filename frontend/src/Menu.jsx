@@ -4,12 +4,39 @@ import Button from './Button';
 
 const Menu = ({ isLoggedIn, setIsLoggedIn }) => {
 
-    const userName = useRef(null);
-    const password = useRef(null);
+    const userNameRef = useRef(null);
+    const passwordRef = useRef(null);
 
-    const logIn = () => {
+    const logIn = async () => {
 
-        setIsLoggedIn(true);
+        const user = {
+            username: userNameRef.current.value,
+            password: passwordRef.current.value
+        }
+
+
+        const response = await fetch('http://localhost:5000/sessions', {
+            method: "POST",
+            mode: "cors",
+            cache: "no-cache",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(user),
+        });
+
+        if (response.ok) {
+
+            setIsLoggedIn(true);
+
+        } else {
+
+            console.log('error');
+
+        }
+
+
 
     }
     const logOut = () => {
@@ -35,8 +62,8 @@ const Menu = ({ isLoggedIn, setIsLoggedIn }) => {
         menuItems = (
             <div className='flex flex-col gap-2'>
                 <div className='flex flex-col gap-1'>
-                    <input placeholder='User Name' className='w-full border border-pink-500 rounded-lg px-2 py-1' type="text" ref={userName} />
-                    <input placeholder='Password' className='w-full border border-pink-500 rounded-lg px-2 py-1' type="password" ref={password} />
+                    <input placeholder='User Name' className='w-full border border-pink-500 rounded-lg px-2 py-1 text-pink-800' type="text" ref={userNameRef} />
+                    <input placeholder='Password' className='w-full border border-pink-500 rounded-lg px-2 py-1 text-pink-800' type="password" ref={passwordRef} />
                 </div>
                 <ul className='grid grid-cols-2 gap-2 font-semibold'>
                     <Button title='Log in' link='/home' callback={logIn} />
