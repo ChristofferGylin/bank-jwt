@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { Link } from "react-router-dom";
 import Button from "./Button";
 
-const Menu = ({ isLoggedIn, setIsLoggedIn }) => {
+const Footer = ({ isLoggedIn, setIsLoggedIn }) => {
   const userNameRef = useRef(null);
   const passwordRef = useRef(null);
 
@@ -68,21 +68,15 @@ const Menu = ({ isLoggedIn, setIsLoggedIn }) => {
         </div>
         <ul className="grid grid-cols-2 gap-2 font-semibold">
           <Button title="Log in" link="/home" callback={logIn} />
-          <Button title="New account" link="/register" />
+          <Button title="New account" link="/register" callback={logIn} />
         </ul>
       </div>
     );
   }
 
   return (
-    <header className="flex justify-between items-center w-full h-36 bg-pink-400 text-pink-100 p-4">
-      <Link to="/">
-        <h1 className="text-6xl drop-shadow-xl">Piggy Bank</h1>
-      </Link>
-
-      {menuItems}
-    </header>
+    <footer className="flex justify-between items-center w-full h-24 bg-pink-400 text-pink-100 p-4"></footer>
   );
 };
 
-export default Menu;
+export default Footer;
