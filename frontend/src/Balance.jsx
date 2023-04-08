@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import getCookie from "./getCookie";
 
 const Balance = () => {
 
@@ -6,8 +7,7 @@ const Balance = () => {
 
     const getAccount = async () => {
 
-        const cookies = document.cookie.split(' ');
-        const token = cookies.find(cookie => cookie.includes('gylin-bank-jwt')).split('=')[1];
+        const token = getCookie('gylin-bank-jwt');
 
         console.log('cookie token:', token)
 

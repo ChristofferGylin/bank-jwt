@@ -48,7 +48,7 @@ app.post("/sessions", (req, res) => {
   if (dbUser.password === user.password) {
     const token = jwt.sign(dbUser.username, SECRET);
     console.log("token:", token);
-    res.json(token);
+    res.json({ token, name: dbUser.firstName });
   } else {
     res.send("error");
   }

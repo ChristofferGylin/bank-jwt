@@ -24,8 +24,9 @@ const Menu = ({ isLoggedIn, setIsLoggedIn }) => {
     });
 
     if (response.ok) {
-      const token = await response.json();
-      document.cookie = `gylin-bank-jwt=${token}`;
+      const data = await response.json();
+      document.cookie = `gylin-bank-jwt=${data.token}`;
+      document.cookie = `gylin-bank-name=${data.name}`;
       setIsLoggedIn(true);
     } else {
       console.log("error");
@@ -35,6 +36,7 @@ const Menu = ({ isLoggedIn, setIsLoggedIn }) => {
   const logOut = () => {
     document.cookie =
       "gylin-bank-jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    "gylin-bank-name=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     setIsLoggedIn(false);
   };
 
