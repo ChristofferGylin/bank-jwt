@@ -10,6 +10,7 @@ import Balance from './Balance'
 import UserHome from './UserHome'
 import Deposit from './Deposit'
 import Withdraw from './Withdraw'
+import AccountHistory from './AccountHistory'
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         element: <Withdraw />,
         path: '/withdraw'
+      },
+      {
+        element: <AccountHistory />,
+        path: '/account'
       }
     ]
   }

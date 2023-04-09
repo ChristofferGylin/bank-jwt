@@ -69,7 +69,7 @@ const Withdraw = () => {
             {done && <h2 className="text-3xl">{message}</h2>}
             {!done &&
                 <div className="flex flex-col border  bg-white shadow-lg rounded-lg gap-3 p-4 w-5/6 my-6">
-                    <h2 className="text-3xl">Deposit</h2>
+                    <h2 className="text-3xl">Withdraw</h2>
                     <label htmlFor="amountInput">Amount</label>
                     <input
                         placeholder="0"
