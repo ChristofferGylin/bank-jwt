@@ -8,6 +8,8 @@ import Start from './Start'
 import CreateUser from './CreateUser'
 import Balance from './Balance'
 import UserHome from './UserHome'
+import Deposit from './Deposit'
+import Withdraw from './Withdraw'
 
 const router = createBrowserRouter([
   {
@@ -30,6 +32,14 @@ const router = createBrowserRouter([
         element: <UserHome />,
         path: '/home'
       },
+      {
+        element: <Deposit />,
+        path: '/deposit'
+      },
+      {
+        element: <Withdraw />,
+        path: '/withdraw'
+      }
     ]
   }
 ])

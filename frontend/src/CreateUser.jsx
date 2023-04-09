@@ -35,8 +35,9 @@ const CreateUser = () => {
     });
 
     if (response.ok) {
-      const token = await response.json();
-      document.cookie = `gylin-bank-jwt=${token}`;
+      const data = await response.json();
+      document.cookie = `gylin-bank-jwt=${data.token}`;
+      document.cookie = `gylin-bank-name=${data.name}`;
       setIsLoggedIn(true);
       navigate('/home');
     } else {

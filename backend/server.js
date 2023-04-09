@@ -3,17 +3,44 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import jwt from "jsonwebtoken";
 import cors from "cors";
+import getAccount from "./getAccount.js";
+import deposit from "./deposit.js";
+
+const authenticate = (req, res, next) => {
+
+  const token = req.headers.authorization.split(' ')[1].replace(';', '');
+  jwt.verify(token, SECRET, (err, userName) => {
+
+    if (err) {
+
+      res.sendStatus(403);
+      return;
+    }
+
+    req.userName = userName;
+    next();
+
+  })
+
+}
 
 const PORT = 5000;
-const SECRET = "iu1sdfhnfvxl576nhbiofhdx367sdfjoixfvhn2252xuy";
+export const SECRET = "iu1sdfhnfvxl576nhbiofhdx367sdfjoixfvhn2252xuy";
 const app = express();
 
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors());
 
-const users = [{ id: 0, username: "chris", password: "1234" }];
-const accounts = [{ id: 0, userId: 0, balance: 100, transactions: [] }];
+export const users = [{
+  username: 'chris',
+  password: '123',
+  email: 'christoffer@christoffergylin.com',
+  firstName: 'Christoffer',
+  lastName: 'Gylin',
+  id: 0
+}];
+export const accounts = [{ id: 0, userId: 0, balance: 1000, transactions: [] }];
 let userIdCount = 1;
 let accountIdCount = 1;
 
@@ -32,8 +59,7 @@ app.post("/users", (req, res) => {
   console.log("users:", users);
   console.log("accounts:", accounts);
   const token = jwt.sign(user.username, SECRET);
-  console.log("token:", token);
-  res.json(token);
+  res.json({ token, name: user.firstName });
 
 });
 
@@ -43,38 +69,49 @@ app.post("/sessions", (req, res) => {
     (userElement) => userElement.username === user.username
   );
 
-  console.log("dBUser:", dbUser);
-
   if (dbUser.password === user.password) {
     const token = jwt.sign(dbUser.username, SECRET);
-    console.log("token:", token);
     res.json({ token, name: dbUser.firstName });
   } else {
     res.send("error");
   }
 });
 
-app.get("/me/accounts", (req, res) => {
-  const headers = req.headers;
+app.get("/me/accounts", authenticate, (req, res) => {
 
-  console.log("headers:", headers);
-  const authHeader = headers.authorization;
-  const token = authHeader.split(" ")[1];
 
-  console.log("token form accounts:", token);
+  const account = getAccount(req.userName);
 
-  jwt.verify(token, SECRET, (err, userName) => {
-    if (err) {
-      res.sendStatus(403);
-      return;
-    }
-    const user = users.find((userElement) => userElement.username === userName);
-    const account = accounts.find((acc) => acc.id === user.id);
+  if (account) {
 
-    console.log("userId:", user.id);
     res.send(account);
-  });
+
+  } else {
+
+    res.sendStatus(500);
+
+  }
+
 });
+
+app.post('/me/deposits', authenticate, (req, res) => {
+
+  const account = getAccount(req.userName);
+
+  if (account) {
+
+    deposit(account, req.body.amount);
+    console.log(account);
+    res.send({ balance: account.balance });
+
+  } else {
+
+    res.sendStatus(500);
+
+  }
+
+
+})
 
 app.listen(PORT, () => {
   console.log("Server listening on port " + PORT);

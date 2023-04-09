@@ -1,10 +1,11 @@
 import { useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "./Button";
 
 const Menu = ({ isLoggedIn, setIsLoggedIn }) => {
   const userNameRef = useRef(null);
   const passwordRef = useRef(null);
+  const navigate = useNavigate();
 
   const logIn = async () => {
     const user = {
@@ -28,6 +29,8 @@ const Menu = ({ isLoggedIn, setIsLoggedIn }) => {
       document.cookie = `gylin-bank-jwt=${data.token}`;
       document.cookie = `gylin-bank-name=${data.name}`;
       setIsLoggedIn(true);
+      navigate('/home');
+
     } else {
       console.log("error");
     }
@@ -69,7 +72,7 @@ const Menu = ({ isLoggedIn, setIsLoggedIn }) => {
           />
         </div>
         <ul className="grid grid-cols-2 gap-2 font-semibold">
-          <Button title="Log in" link="/home" callback={logIn} />
+          <Button title="Log in" callback={logIn} />
           <Button title="New account" link="/register" />
         </ul>
       </div>
