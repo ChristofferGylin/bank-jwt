@@ -94,6 +94,22 @@ app.get("/me/accounts", authenticate, (req, res) => {
 
 });
 
+app.get("/me/auth", authenticate, (req, res) => {
+
+  const user = users.find((userElement) => userElement.username === req.userName);
+
+  if (user) {
+
+    res.json({ firstName: user.firstName, lastName: user.lastName, });
+
+  } else {
+
+    res.sendStatus(500);
+
+  }
+
+});
+
 app.post('/me/deposits', authenticate, (req, res) => {
 
   const account = getAccount(req.userName);
