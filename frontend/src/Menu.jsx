@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "./Button";
 import { FaUserCircle } from 'react-icons/fa';
 
-const Menu = ({ isLoggedIn, setIsLoggedIn }) => {
+const Menu = ({ isLoggedIn, setIsLoggedIn, setResetTrigger }) => {
   const userNameRef = useRef(null);
   const passwordRef = useRef(null);
   const navigate = useNavigate();
@@ -62,10 +62,10 @@ const Menu = ({ isLoggedIn, setIsLoggedIn }) => {
           <Link className="hover:underline" to="/account">
             Account History
           </Link>
-          <Link className="hover:underline" to="/deposit">
+          <Link className="hover:underline" to="/deposit" onClick={() => setResetTrigger(trigger => trigger + 1)}>
             Deposit
           </Link>
-          <Link className="hover:underline" to="/withdraw">
+          <Link className="hover:underline" to="/withdraw" onClick={() => setResetTrigger(trigger => trigger + 1)}>
             Withdraw
           </Link>
           <button className="hover:underline" onClick={() => { logOut(setIsLoggedIn) }}>Log out</button>

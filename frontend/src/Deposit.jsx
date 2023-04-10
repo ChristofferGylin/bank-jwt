@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import Button from "./Button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import getCookie from "./getCookie";
 
 const Deposit = () => {
@@ -9,6 +9,7 @@ const Deposit = () => {
     const [message, setMessage] = useState('');
     const amountRef = useRef(null);
     const navigate = useNavigate();
+    const { resetTrigger } = useOutletContext();
 
     const reset = () => {
 
@@ -16,6 +17,11 @@ const Deposit = () => {
         setMessage('')
 
     }
+
+    useEffect(() => {
+        console.log('resetTrigger:', resetTrigger)
+        reset();
+    }, [resetTrigger])
 
     const deposit = async () => {
 

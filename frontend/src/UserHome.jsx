@@ -13,7 +13,7 @@ const UserHome = () => {
     const quickBalance = () => {
 
         getAccount((account) => {
-            setMessage(`Account Balance: ${account.balance}`)
+            setMessage(`You have $${account.balance} in your account`)
         })
 
     }
