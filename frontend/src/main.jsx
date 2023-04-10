@@ -3,10 +3,8 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Login from './Login'
 import Start from './Start'
 import CreateUser from './CreateUser'
-import Balance from './Balance'
 import UserHome from './UserHome'
 import Deposit from './Deposit'
 import Withdraw from './Withdraw'
@@ -24,10 +22,6 @@ const router = createBrowserRouter([
       {
         element: <CreateUser />,
         path: '/register'
-      },
-      {
-        element: <Balance />,
-        path: '/balance'
       },
       {
         element: <UserHome />,

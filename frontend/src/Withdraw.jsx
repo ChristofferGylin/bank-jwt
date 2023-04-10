@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
 import getCookie from "./getCookie";
+import { useOutletContext } from "react-router-dom";
 
 const Withdraw = () => {
 
@@ -9,6 +10,7 @@ const Withdraw = () => {
     const [message, setMessage] = useState('');
     const amountRef = useRef(null);
     const navigate = useNavigate();
+    const { resetTrigger } = useOutletContext();
 
     const reset = () => {
 
@@ -16,6 +18,10 @@ const Withdraw = () => {
         setMessage('')
 
     }
+
+    useEffect(() => {
+        reset();
+    }, [resetTrigger])
 
     const withdraw = async () => {
 

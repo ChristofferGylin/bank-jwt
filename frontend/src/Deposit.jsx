@@ -19,7 +19,6 @@ const Deposit = () => {
     }
 
     useEffect(() => {
-        console.log('resetTrigger:', resetTrigger)
         reset();
     }, [resetTrigger])
 

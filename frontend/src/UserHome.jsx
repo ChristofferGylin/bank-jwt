@@ -1,15 +1,21 @@
-import getCookie from "./getCookie";
-import Button from "./Button";
 import BigButton from "./BigButton";
 import getAccount from "./getAccount";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 
 const UserHome = () => {
-    const name = getCookie('gylin-bank-name');
-    const [message, setMessage] = useState(`Welcome ${name}, what do you wish to do today?`)
+
+    const { name } = useOutletContext();
+    const [message, setMessage] = useState(`Welcome ${name.firstName}, what do you wish to do today?`)
     const navigate = useNavigate();
     const { setIsLoggedIn } = useOutletContext();
+
+
+    useEffect(() => {
+
+        setMessage(`Welcome ${name.firstName}, what do you wish to do today?`);
+
+    }, [name])
 
     const quickBalance = () => {
 
@@ -21,7 +27,6 @@ const UserHome = () => {
 
     const logOut = () => {
         document.cookie = "gylin-bank-jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        document.cookie = "gylin-bank-name=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         setIsLoggedIn(false);
         navigate('/');
     };

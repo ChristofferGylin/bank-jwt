@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import Button from "./Button";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import BigButton from "./BigButton";
 
@@ -11,7 +10,7 @@ const CreateUser = () => {
   const lastNameRef = useRef(null);
   const initialDepositRef = useRef(null);
   const navigate = useNavigate();
-  const setIsLoggedIn = useOutletContext();
+  const { setIsLoggedIn, setName } = useOutletContext();
 
   const createUser = async () => {
     const user = {
@@ -38,8 +37,11 @@ const CreateUser = () => {
     if (response.ok) {
       const data = await response.json();
       document.cookie = `gylin-bank-jwt=${data.token}`;
-      document.cookie = `gylin-bank-name=${data.name}`;
       setIsLoggedIn(true);
+      setName({
+        firstName: data.firstName,
+        lastName: data.lastName,
+      })
       navigate('/home');
     } else {
       console.log("error");

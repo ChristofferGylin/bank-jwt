@@ -6,12 +6,13 @@ import Footer from "./Footer";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [resetTrigger, setResetTrigger] = useState(0);
+  const [name, setName] = useState({ firstName: '', lastName: '' })
 
   return (
     <div className="App flex flex-col justify-between w-5/6 max-w-[1024px] mx-auto bg-pink-50 text-pink-900 h-full min-h-screen  shadow-lg shadow-pink-950/20">
-      <Menu isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setResetTrigger={setResetTrigger} />
+      <Menu isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setResetTrigger={setResetTrigger} name={name} setName={setName} />
       <div className="flex justify-center items-center pb-8 w-full h-full">
-        <Outlet context={{ setIsLoggedIn, resetTrigger, setResetTrigger }} />
+        <Outlet context={{ setIsLoggedIn, resetTrigger, setResetTrigger, name, setName }} />
       </div>
       <Footer />
     </div>

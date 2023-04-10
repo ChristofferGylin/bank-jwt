@@ -59,7 +59,7 @@ app.post("/users", (req, res) => {
   console.log("users:", users);
   console.log("accounts:", accounts);
   const token = jwt.sign(user.username, SECRET);
-  res.json({ token, name: user.firstName });
+  res.json({ token, firstName: user.firstName, lastName: user.lastName, });
 
 });
 
@@ -71,7 +71,7 @@ app.post("/sessions", (req, res) => {
 
   if (dbUser.password === user.password) {
     const token = jwt.sign(dbUser.username, SECRET);
-    res.json({ token, name: dbUser.firstName });
+    res.json({ token, firstName: dbUser.firstName, lastName: dbUser.lastName });
   } else {
     res.send("error");
   }

@@ -1,13 +1,12 @@
-import { useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import Button from "./Button";
 import { FaUserCircle } from 'react-icons/fa';
 
-const Menu = ({ isLoggedIn, setIsLoggedIn, setResetTrigger }) => {
+const Menu = ({ isLoggedIn, setIsLoggedIn, setResetTrigger, name, setName }) => {
   const userNameRef = useRef(null);
   const passwordRef = useRef(null);
   const navigate = useNavigate();
-  const [name, setName] = useState('');
 
   const logIn = async () => {
     const user = {
@@ -29,8 +28,7 @@ const Menu = ({ isLoggedIn, setIsLoggedIn, setResetTrigger }) => {
     if (response.ok) {
       const data = await response.json();
       document.cookie = `gylin-bank-jwt=${data.token}`;
-      document.cookie = `gylin-bank-name=${data.name}`;
-      setName(data.name);
+      setName({ firstName: data.firstName, lastName: data.lastName, });
       setIsLoggedIn(true);
       navigate('/home');
 
@@ -41,7 +39,6 @@ const Menu = ({ isLoggedIn, setIsLoggedIn, setResetTrigger }) => {
 
   const logOut = () => {
     document.cookie = "gylin-bank-jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    document.cookie = "gylin-bank-name=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     setIsLoggedIn(false);
     navigate('/');
   };
@@ -53,7 +50,7 @@ const Menu = ({ isLoggedIn, setIsLoggedIn, setResetTrigger }) => {
 
       <div className="flex flex-col justify-between items-end h-full">
         <div className="flex items-center gap-1">
-          {name} <FaUserCircle className="text-lg" />
+          {name.firstName} {name.lastName} <FaUserCircle className="text-lg" />
         </div>
         <div className="flex gap-5 text-md font-semibold items-end">
           <Link className="hover:underline" to="/home">
