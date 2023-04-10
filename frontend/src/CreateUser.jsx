@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import Button from "./Button";
 import { useNavigate, useOutletContext } from "react-router-dom";
+import BigButton from "./BigButton";
 
 const CreateUser = () => {
   const userNameRef = useRef(null);
@@ -87,8 +88,9 @@ const CreateUser = () => {
           defaultValue={0}
         />
         <div className="flex gap-3">
-          <Button title="Register" callback={createUser}></Button>
-          <Button title="Cancel" link="/"></Button>
+          <BigButton title="Register" callback={createUser}></BigButton>
+          <BigButton title="Cancel" link="/"></BigButton>
+
         </div>
       </div>
     </div>
