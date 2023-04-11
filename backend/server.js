@@ -50,12 +50,16 @@ app.post("/users", (req, res) => {
 
   users.push(user);
 
-  accounts.push({
+  const account = {
     id: accountIdCount++,
     userId: user.id,
-    balance: req.body.initialDeposit,
+    balance: 0,
     transactions: [],
-  });
+  };
+
+  deposit(account, req.body.initialDeposit, true);
+
+  accounts.push(account);
   console.log("users:", users);
   console.log("accounts:", accounts);
   const token = jwt.sign(user.username, SECRET);

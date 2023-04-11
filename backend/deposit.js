@@ -1,10 +1,14 @@
-const deposit = (account, amount) => {
+const deposit = (account, amount, initial) => {
 
     account.balance += parseInt(amount);
 
     let note;
 
-    if (amount > 0) {
+    if (initial) {
+
+        note = 'Initial Deposit';
+
+    } else if (amount > 0) {
 
         note = 'Deposited';
 
